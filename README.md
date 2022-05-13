@@ -41,7 +41,7 @@ This will build the production version of the **React** client
 1. Using the `.env.example` file as a template, create a `.env` file
 
 2. Add your database connection details to your `.env` file, filling in the details as provided to you by MongoDB
-   > Hint: The key `DB_NAME` points to the name of the database you want to connect to. Use the name `db-validation`. This will ensure that Mongoose will try and use the existing sample dataset you previously set up.
+   > Hint: The key `DB_NAME` points to the name of the database you want to connect to
 
    > Hint: The key `DB_HOST` is the **domain** of your MongoDB connection string
 

@@ -2,12 +2,6 @@
 
 This assignment will allow you to experience handling JWT in the frontend, via httpOnly cookies
 
-> Difficulty level: Intermediate 🥸🏁
-
-## Keywords
-
-`react`, `express`, `mongoose`, `bcrypt`, `passport`, `passport-jwt`, `jsonwebtoken`, `jwt`, `cookie-parser`, `httpOnly`, `credentials`
-
 ## What you will be doing
 
 For this assignment you will have to:
@@ -20,66 +14,53 @@ For this assignment you will have to:
 
 ## Folder Structure
 
-This repository contains the `client` (frontend) as a subfolder
+The `/client` subfolder contains the **create-react-app** frontend build
 
-When you run your node server, it will automatically handle requests to serve the `/client` pages. You can view it in
-the browser under the URL `http://localhost:3001/`
+When you run `node server.js`, all requests which are not handled by **express** will automatically be forwarded to the production **React** application in the folder `/client/build`
 
-**There is no need to serve the client separately**
+You can view the frontend here [http://localhost:3001/](http://localhost:3001/)
 
 ## Getting Started
 
-1. run `npm run setup`
-2. run `npm run build`
+```bash
+npm run setup
+```
 
-> Make some tea, this may take a while
-> You only need to run these commands once
+This will install the `npm` dependencies for both server and client
 
-## Usage
+```bash
+npm run build
+```
 
-1. run `nodemon server.js` or `node server.js` (if you do not have nodemon installed)
-
-##### 🔥 IMPORTANT! Changing the frontend
-
-If you want to change the client, you must rebuild the static client files
-
-1. run `npm run build`
-
-##### 🔥 IMPORTANT! Frontend in development mode
-
-If you want to serve the frontend in development mode, you can
-
-1. Run `npm run client-dev`
+This will build the production version of the **React** client
 
 ## Tasks
 
-## Task 1 - Setting up the .env file
+### Task 1 - Setting up the .env file
 
 1. Using the `.env.example` file as a template, create a `.env` file
-2. Add your database connection details to your `.env` file
-3. The key `DB_NAME` points to the name of the database you want to connect to. Choose a name for your database.
-4. For the other keys, fill in the details as provided to you by your MongoDB service.
-5. The key `DB_HOST` is the domain of the MongoDB service you will connect to
 
-## Task 2 - Preparing our server to receive requests
+2. Add your database connection details to your `.env` file, filling in the details as provided to you by MongoDB
+   > Hint: The key `DB_NAME` points to the name of the database you want to connect to. Use the name `db-validation`. This will ensure that Mongoose will try and use the existing sample dataset you previously set up.
 
-In the next tasks, we will create a REST API so that clients can register and login on our server. To do this, we must first begin with a few steps:
+   > Hint: The key `DB_HOST` is the **domain** of your MongoDB connection string
 
-1. Install the npm package `cors`
-2. Import and add `cors` to your middleware stack. This will prevent the dreaded same origin policy error in your browser.
+### Task 2 - Installing extra dependencies
 
-   > Remember to run your middleware before any of your routes!
+1. Install the [cors](https://www.npmjs.com/package/cors) npm package
+2. Install the [cookie-parser](https://www.npmjs.com/package/cookie-parser) npm package
 
-3. Run `express.json()` as middleware. This will allow any JSON sent for example, with a POST request, to be correctly read by the server.
+### Task 3 - Creating the middleware stack
 
-## Task 3 - Cookie-parser middleware
+Add the following packages to your middleware stack;
 
-For our backend to be able to read cookies, we must install and use the `cookie-parser` middleware
+1. `cors`
+2. `cookie-parser`
+3. `express.json`
 
-1. Install the `cookie-parser` middleware
-2. Apply it to your middleware stack
+> Remember to run your middleware before any of your routes!
 
-## Task 4 - Allowing the 'credentials' header with CORS
+### Task 4 - Allowing the 'credentials' header with CORS
 
 1. Modify your `cors()` middleware to use the following object
 ```javascript
@@ -90,9 +71,9 @@ For our backend to be able to read cookies, we must install and use the `cookie-
 
 This configures the **Access-Control-Allow-Credentials** CORS header. Set to true to pass the header, otherwise it is omitted.
 
-## Task 5 - The registration controller
+### Task 5 - The registration controller
 
-For your convenience, all routes and endpoints have been setup. However, you must complete the controller logic for the endpoints
+For your convenience, all routes and endpoints have been created. However, you must complete the controller logic for the endpoints
 
 Complete the controller for the `/registration` endpoint. The controller should;
 
@@ -103,7 +84,7 @@ Complete the controller for the `/registration` endpoint. The controller should;
 
 > Hint: Make sure to check the `user` schema to see what information is required!
 
-## Task 6 - The login controller
+### Task 6 - The login controller
 
 Complete the controller for the `/login` endpoint. The controller should;
 
@@ -111,7 +92,7 @@ Complete the controller for the `/login` endpoint. The controller should;
 2. Check to make sure the user exists
 3. Use **bcrypt** to verify the password matches with the user hash from the database
 
-## Task 7 - Sending the JWT token from server to client
+### Task 7 - Sending the JWT token from server to client
 
 We would like the client to receive the JWT token, after a successful login
 
@@ -124,13 +105,13 @@ In your login controller, after you have validated that the user has provided th
 > Hint: To attach a cookie to the client response, you can use the **response** method `cookie`, for example:
 > ```javascript
 >   cookie('jwt', jwtToken, {
->      httpOnly: true, // Flags the cookie to be accessible only by the web server
->      secure: false, // Marks the cookie to be used with HTTPS only
->      sameSite: 'lax' // https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-cookie-same-site-00#section-4.1.1
+>      httpOnly: true,
+>      secure: false,
+>      sameSite: 'lax'
 >   })
 > ```
 
-## Task 8 - Setting up our frontend to receive the cookie
+### Task 8 - Setting up our frontend to receive the cookie
 
 In your frontend, `Login` component, modify the server request so that it has the credentials
 
@@ -150,7 +131,7 @@ In your frontend, `Login` component, modify the server request so that it has th
 > withCredentials: true
 > ```
 
-## Task 9 - Test that the cookie with the JWT is returned when logging in
+### Task 9 - Test that the cookie with the JWT is returned when logging in
 
 Run the frontend in your browser
 
@@ -159,14 +140,14 @@ Run the frontend in your browser
 3. Login
 4. Monitor that the **response** from the server includes the cookie
 
-## Task 10 - Using passport.js
+### Task 10 - Using passport.js
 
 We would like the option to authorise certain requests from the user
 
 1. Use **npm** to install the `passport` and the `passport-jwt` package
 2. Initialise the passport middleware and apply it to your middleware stack
 
-## Task 11 - Setup passport.js to read the token from the httpOnly cookie
+### Task 11 - Setup passport.js to read the token from the httpOnly cookie
 
 1. Configure passport.js with the `passport-jwt` strategy
 
@@ -181,18 +162,18 @@ We would like the option to authorise certain requests from the user
 
 3. Setup passport to use the new configuration
 
-## Task 12 - Adding the auth middleware to the profile route
+### Task 12 - Adding the auth middleware to the profile route
 
 1. Add the passport middleware to the `/profile` route
 
-## Task 13 - Completing the profile controller
+### Task 13 - Completing the profile controller
 
 Complete the controller for the `/profile` endpoint. The controller should;
 
 1. Read the **user** details from the **request** object 
 2. Return the user details to the client as part of the **response**
 
-## Task 14 - Complete the Profile React component
+### Task 14 - Complete the Profile React component
 
 In the following file `client/src/components/Login/index.js`;
 
@@ -200,6 +181,6 @@ In the following file `client/src/components/Login/index.js`;
 2. Ensure that your request sends the httpOnly cookie credentials with the request, like you did in **Task 8**
 3. Display the results on the page
 
-## Task 15 - Test everything!
+### Task 15 - Test everything!
 
 Test that everything works, and that after logging in, a user can make a request to a route that requires authorisation!

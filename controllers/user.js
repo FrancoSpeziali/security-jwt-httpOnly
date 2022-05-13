@@ -1,5 +1,5 @@
-exports.login = async (req, res) => {};
+export const login = async (req, res) => {};
 
-exports.profile = async (req, res) => {};
+export const profile = async (req, res) => {};
 
-exports.register = async (req, res) => {};
+export const register = async (req, res) => {};

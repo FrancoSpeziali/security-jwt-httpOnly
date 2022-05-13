@@ -1,7 +1,7 @@
-const jsonwebtoken = require("jsonwebtoken");
-const { Promise } = require("mongoose");
+import jsonwebtoken from "jsonwebtoken";
+import config from "../config/config.js";
 
-exports.issueJwt = (user) => {
+export function issueJwtAsync(user) {
   const payload = {
     id: user._id,
   };
@@ -9,7 +9,7 @@ exports.issueJwt = (user) => {
   return new Promise((resolve, reject) => {
     jsonwebtoken.sign(
       payload,
-      process.env["SECRET"],
+      config.jwtSecret,
       {
         expiresIn: "1h",
       },
@@ -21,4 +21,4 @@ exports.issueJwt = (user) => {
       }
     );
   });
-};
+}

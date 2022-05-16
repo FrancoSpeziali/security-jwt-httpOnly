@@ -99,7 +99,7 @@ We would like the client to receive the JWT token, after a successful login
 In your login controller, after you have validated that the user has provided the correct login details;
 
 1. Generate a JWT token using the provided JWT helper
-2. Send the token back to the client using a httpOnly cookie
+2. Send the token back to the client using a **httpOnly** cookie
 3. Test your endpoint so ensure that the cookie (with the token) is being sent to the client
 
 > Hint: To attach a cookie to the client response, you can use the **response** method `cookie`, for example:
@@ -119,7 +119,7 @@ In your frontend, `Login` component, modify the server request so that it has th
    > Hint: If you wish to use `axios`, you need to run `npm i axios` from your `/client` folder
 2. Modify your request to point to the URL for the backend endpoint
 3. Modify your request so it is of type `post`
-4. Modify your request so that it sends the httpOnly cookie
+4. Modify your request so that it sends the **httpOnly** cookie
 
 > Hint: For a **fetch** request, you need to use the `credentials` option
 > ```javascript

@@ -178,7 +178,7 @@ Complete the controller for the `/profile` endpoint. The controller should;
 In the following file `client/src/components/Login/index.js`;
 
 1. Complete the component so that it requests the profile from the backend
-2. Ensure that your request sends the httpOnly cookie credentials with the request, like you did in **Task 8**
+2. Ensure that your request sends the **httpOnly** cookie credentials with the request, like you did in **Task 8**
 3. Display the results on the page
 
 ### Task 15 - Test everything!
